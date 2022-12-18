@@ -97,7 +97,7 @@ function renderButtons(choicesArray, correctAnswer) {
     // attach a "click" event listener with the buttonHandler function,
     // and append the button as a child of the options element
 
-    for (choices of choicesArray){
+    for (choice of choicesArray){
         const button = document.createElement("button");
         button.textContent = button.name = button.value = choice;
         button.addEventListener("click", buttonHandler);
@@ -136,7 +136,14 @@ async function loadQuizData() {
 // Asynchronously call the loadQuizData() function,     
 // Then call renderQuiz() with the returned imageUrl, correctAnswer, and choices 
 
-const [imgUrl, correctAnswer, choices] = await loadQuizData();
-renderQuiz(imgUrl, correctAnswer, choices);
+//persona note: can't call await on top level js code, so it must be wrapped in a main async function init() otherwise there will be a lot of errors
+async function init(){
+    const [imgUrl, correctAnswer, choices] = await loadQuizData();
+    renderQuiz(imgUrl, correctAnswer, choices);
+}
+
+init();
+
+
 
 
