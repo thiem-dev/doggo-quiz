@@ -20,9 +20,21 @@ function shuffleArray(array) {
 // TODO 1
 // Given an array of possible answers, a correct answer value, and a number of choices to get,
 // return a list of that many choices, including the correct answer and others from the array
-function getMultipleChoices(n, correctAnswer, array) {
+function getMultipleChoices(n, correctAnswer, possibleChoices) {
     // Use a while loop and the getRandomElement() function
-    // Make sure there are no duplicates in the array
+    // Make sure there are no duplicates in the array 
+
+    const choices = [];
+    choices.push(correctAnswer);
+    while(choices.length < n){
+        let candidate = getRandomElement(possibleChoices);
+        if(!choices.includes(candidate)) {
+            choices.push(candidate);
+        }
+        
+    }
+
+    return shuffleArray(choices);
 
 }
 
@@ -30,9 +42,22 @@ function getMultipleChoices(n, correctAnswer, array) {
 // TODO 2
 // Given a URL such as "https://images.dog.ceo/breeds/poodle-standard/n02113799_2280.jpg"
 // return the breed name string as formatted in the breed list, e.g. "standard poodle"
+
+//test strings
+// let url1 = "https://images.dog.ceo/breeds/standard/n02113799_2280.jpg"
+// let url2 = "https://images.dog.ceo/breeds/poodle-standard/n02113799_2280.jpg"
+
 function getBreedFromURL(url) {
     // The string method .split(char) may come in handy
     // Try to use destructuring as much as you can
+    
+    let unsplitBreed = url.split("/")[4]; 
+    let splitCount = unsplitBreed.split("-").length;
+    if(splitCount === 2){
+        let [breed, subreed] = unsplitBreed.split("-");
+        return [subreed, breed].join(" ");
+    }
+    return unsplitBreed;
     
 }
 
@@ -43,7 +68,10 @@ function getBreedFromURL(url) {
 // then parse the response as a JSON object,
 // finally return the "message" property of its body
 async function fetchMessage(url) {
-    
+    const response = await fetch(url);
+    const body = await response.json();
+    const {message} = body;
+    return message;
 }
 
 
