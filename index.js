@@ -96,6 +96,13 @@ function renderButtons(choicesArray, correctAnswer) {
     // Create a button element whose name, value, and textContent properties are the value of that choice,
     // attach a "click" event listener with the buttonHandler function,
     // and append the button as a child of the options element
+
+    for (choices of choicesArray){
+        const button = document.createElement("button");
+        button.textContent = button.name = button.value = choice;
+        button.addEventListener("click", buttonHandler);
+        options.appendChild(button);
+    }
     
 }
 
